@@ -33,8 +33,8 @@ jobs:
           cd target
           # 아래 email 을 "네 GitHub 계정에 연결된 이메일"로 바꾸면
           # org 레포 커밋도 네 잔디로 집계돼요.
-          git config user.name "seungseok"
-          git config user.email "[email protected]"
+          git config user.name "tmdtjr"
+          git config user.email "202040921+tmdtjr@users.noreply.github.com"
           git add seungseok
           git diff --staged --quiet || git commit -m "sync: update seungseok solutions"
           git push
