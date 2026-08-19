@@ -1,11 +1,8 @@
 # 개인 레포의 .github/workflows/sync-to-coala.yml 로 저장
-
 name: Sync to coala-study/coding-test
-
 on:
   push:
     branches: [main]   # 개인 레포 기본 브랜치명에 맞춰 수정 (main / master 등)
-
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -14,25 +11,19 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: source
-
       - name: coala-study/coding-test 체크아웃
         uses: actions/checkout@v4
         with:
           repository: coala-study/coding-test
           token: ${{ secrets.COALA_SYNC_TOKEN }}
           path: target
-
       - name: seungseok 폴더로 복사
         run: |
-          rm -rf target/seungseok
           mkdir -p target/seungseok
-          rsync -a --exclude='.git' --exclude='.github' source/ target/seungseok/
-
+          rsync -a --delete --exclude='.git' --exclude='.github' --exclude='neetcode' source/ target/seungseok/
       - name: 커밋 & 푸시
         run: |
           cd target
-          # 아래 email 을 "네 GitHub 계정에 연결된 이메일"로 바꾸면
-          # org 레포 커밋도 네 잔디로 집계돼요.
           git config user.name "tmdtjr"
           git config user.email "202040921+tmdtjr@users.noreply.github.com"
           git add seungseok
